@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="contact-form">
-                    <form id="contactForm" action="#" method="POST">
+                    <form id="contactForm" action="https://formspree.io/f/xojyqpjn" method="POST">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" required>
@@ -93,6 +93,11 @@
                             <label for="message">Message</label>
                             <textarea id="message" name="message" rows="6" required></textarea>
                         </div>
+
+                        <!-- Formspree configuration -->
+                        <input type="hidden" name="_to" value="contact@obrcounseling.com">
+                        <input type="hidden" name="_subject" value="New inquiry from OBR Counseling website">
+                        <input type="hidden" name="_next" value="https://obrcounseling.com/contact.html?sent=true">
 
                         <button type="submit" class="btn-primary">Submit</button>
                     </form>
