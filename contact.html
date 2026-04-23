@@ -71,7 +71,7 @@
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" name="_replyto" required>
                         </div>
 
                         <div class="form-group">
@@ -81,7 +81,7 @@
 
                         <div class="form-group">
                             <label for="inquiry-type">Inquiry Type</label>
-                            <select id="inquiry-type" name="inquiry-type" required>
+                            <select id="inquiry-type" name="inquiry_type" required>
                                 <option value="">Select...</option>
                                 <option value="consultation">Consultation Request</option>
                                 <option value="referral">Professional Referral</option>
@@ -95,9 +95,9 @@
                         </div>
 
                         <!-- Formspree configuration -->
-                        <input type="hidden" name="_to" value="contact@obrcounseling.com">
                         <input type="hidden" name="_subject" value="New inquiry from OBR Counseling website">
                         <input type="hidden" name="_next" value="https://obrcounseling.com/contact.html?sent=true">
+                        <input type="hidden" name="_captcha" value="false">
 
                         <button type="submit" class="btn-primary">Submit</button>
                     </form>

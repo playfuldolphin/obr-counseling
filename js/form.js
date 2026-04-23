@@ -1,5 +1,13 @@
 // Enhanced form validation and handling with better UX
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if user was redirected back after successful form submission
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('sent') === 'true') {
+        showSuccessMessage();
+        // Remove the parameter from the URL without reloading the page
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+    
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
@@ -16,9 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validate all fields
+            // Validate all fields before submission
             let isValid = true;
             inputs.forEach(input => {
                 if (input.hasAttribute('required') && !validateField(input)) {
@@ -27,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             if (!isValid) {
+                e.preventDefault();
                 // Scroll to first error
                 const firstError = contactForm.querySelector('.error');
                 if (firstError) {
@@ -42,15 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.6';
             
-            // In production, this would send to a backend
-            // For now, simulate API call
-            setTimeout(() => {
-                showSuccessMessage();
-                contactForm.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
-            }, 1500);
+            // Let the form submit to Formspree naturally
+            // The success/error handling will be done via URL parameters or Formspree's redirect
         });
     }
     
@@ -140,11 +140,14 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
         
-        const formContainer = contactForm.parentElement;
-        formContainer.insertBefore(successDiv, contactForm);
-        
-        // Scroll to success message
-        successDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const contactForm = document.getElementById('contactForm');
+        const formContainer = contactForm ? contactForm.parentElement : document.querySelector('.contact-form');
+        if (formContainer) {
+            formContainer.insertBefore(successDiv, formContainer.firstChild);
+            
+            // Scroll to success message
+            successDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
         
         // Remove after 15 seconds
         setTimeout(() => {
